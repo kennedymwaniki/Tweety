@@ -28,9 +28,11 @@ def handle_limit(cursor):
         time.sleep(1000)
 
 
-# bot
+# get list of followers and follow them
 for follower in handle_limit(tweepy.Cursor(api.get_followers()).items()):
-    print(follower.name)
+    if follower.name ==  "enter the followers name/profile name":
+        follower.follow()
+    print(follower)
 
 # for this to work you need the basic x plan which is 100$
 # public_tweets = api.home_timeline()
