@@ -28,11 +28,28 @@ def handle_limit(cursor):
         time.sleep(1000)
 
 
-# get list of followers and follow them
-for follower in handle_limit(tweepy.Cursor(api.get_followers()).items()):
-    if follower.name ==  "enter the followers name/profile name":
-        follower.follow()
-    print(follower)
+# bot that loves a tweet based on certain words
+#  search keywords (python)
+search_string = "python"
+number_of_Tweets = 2
+
+for tweet in tweepy.Cursor(api.search_tweets, search_string).items(number_of_Tweets):
+    try:
+        tweet.favorite()
+        # tweet.retweet() -> retweets based on a keyword
+        print("I liked this tweet")
+    except tweepy.errors.TweepyException as e:
+        print(e.reason)
+    except StopIteration:
+        break
+
+
+# get list of followers and follow based on the name
+# for follower in handle_limit(tweepy.Cursor(api.get_followers()).items()):
+#     if follower.name == "enter the followers name/profile name":
+#         follower.follow()
+#         break
+#     print(follower)
 
 # for this to work you need the basic x plan which is 100$
 # public_tweets = api.home_timeline()
